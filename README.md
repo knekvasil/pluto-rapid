@@ -1,1 +1,1 @@
-# Pluto-Rapid
+# pluto-rapid
