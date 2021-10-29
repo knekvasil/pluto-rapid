@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Indie+Flower&display=swap");
+
 html,
 body {
   margin: 0;
@@ -5,17 +7,61 @@ body {
   background-color: black;
 }
 
-body {
+#body-game {
   margin: 0;
+  font-family: "Chelsea Market", cursive;
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+#body-instructions {
+  margin: 0;
+  font-family: "Chelsea Market", cursive;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.button {
+  width: 214px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.header2 {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
 }
 
 .img-logo {
   width: 40%;
-  display: block;
-  margin-left: 50%;
-  margin-right: 50%;
+}
+
+a {
+  display: flex;
+  align-items: center;
+
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
