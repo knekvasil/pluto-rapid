@@ -1,3 +1,5 @@
+// sketch.js
+
 function setup(){
     createCanvas(windowWidth-(windowWidth*.03),windowHeight-(windowHeight*.13));
     stroke(255);
@@ -20,15 +22,6 @@ function draw() {
     text(beginningText,windowWidth * .5,windowHeight * .25);
     
     ellipse(x, y, 66, 66);
-    
-    // textAlign(RIGHT);
-    // text('ABCD', 50, 30);
-    // textAlign(CENTER);
-    // text('EFGH', 50, 50);
-    // textAlign(LEFT);
-    // text('IJKL', 50, 70);
-    // clear background
-    // background(0)
     
 }
 
