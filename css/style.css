@@ -7,22 +7,32 @@ body {
   background-color: black;
 }
 
-#body-game {
-  margin: 0;
+body {
   font-family: "Chelsea Market", cursive;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
+  color: white;
 }
 
-#body-instructions {
-  margin: 0;
-  font-family: "Chelsea Market", cursive;
+a {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
-  flex-direction: column;
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  font-size: 50px;
+}
+
+h3 {
+  font-size: 30px;
 }
 
 .button {
@@ -39,29 +49,10 @@ body {
   justify-content: space-between;
 }
 
-.header2 {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
-}
-
 .img-logo {
   width: 40%;
 }
 
-a {
-  display: flex;
-  align-items: center;
-
-  font-size: 25px;
-  color: white;
-  text-decoration: none;
-}
-
-h2 {
-  font-size: 30px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+.img-howto {
+  width: 70px;
 }
