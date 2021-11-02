@@ -2,19 +2,19 @@
 
 class Vect {
     constructor(x, y, maxSpeed, maxForce) {
-        // x, y position
-        this.x = x;
-        this.y = y;
+        // // x, y position
+        // this.x = x;
+        // this.y = y;
         // speed, force will be randomly generated when initialized
-        self.maxSpeed = maxSpeed;
-        self.maxForce = maxForce;
+        self.maxSpeed = maxSpeed || 4;
+        self.maxForce = maxForce || 0.1;
         // position vector
         this.position = createVector(x,y);
         // acceleration, velocity will be determined by vect + FlowField position vectors
         this.acceleration = createVector(0,0);
         this.velocity = createVector(0,0);
         // size of vect (subject to change)
-        this.r = 3;
+        this.r = 4;
     }
 
     initializeVect(){
@@ -42,21 +42,26 @@ class Vect {
     // Magic method
     follow(flow) {
         let desired = flow.lookup(this.position);
-        desired.multi(this.maxSpeed);
+        desired.mult(this.maxSpeed);
+
         let steer = p5.Vector.sub(desired, this.velocity);
         steer.limit(this.maxForce);
-        this.updateVectForce.steer();
+
+        this.updateVectForce(steer);
     }
 
     // telport vector to opposite edge if travels off canvas
     fieldWrap(){
-        if(this.position.x < - this.r){
+        if(this.position.x < -this.r){
             this.position.x = width + this.r;
-        } else if(this.position.y < -this.r) {
+        }
+        if(this.position.y < -this.r) {
             this.position.y = height + this.r;
-        } else if(this.position.x > this.r) {
+        }
+        if(this.position.x > width + this.r) {
             this.position.x = -this.r;
-        } else if(this.position.y > this.r) {
+        }
+        if(this.position.y > height + this.r) {
             this.position.y = -this.r;
         }
     }

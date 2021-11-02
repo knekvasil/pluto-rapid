@@ -12,15 +12,10 @@ class FlowField{
         this.initializeField();
     }
 
-    // Thanks JavaScript! Very cool.
-    generate2DArray(n){
-        return Array(n).fill(Array(0).fill());
-    }
-
     initializeField(){
         let xOff = 0;
         // Give me legions of fields. 100000 to be precise.
-        NoiseSeed(Math.floor(random(10000)));
+        noiseSeed(Math.floor(random(10000)));
 
         for(let i = 0; i < this.columns; i++) {
             let yOff = 0;
@@ -32,6 +27,17 @@ class FlowField{
             yOff += 0.1;
         }
         xOff += 0.1;
+    }
+
+    // Thanks JavaScript! Very cool.
+    generate2DArray(n){
+        let arr = [];
+
+        for(let i = 0; i < n; i++){
+            arr[i] = [];
+        }
+        return arr;
+        // return Array(n).fill(Array(n).fill());
     }
 
     lookup(position) {
