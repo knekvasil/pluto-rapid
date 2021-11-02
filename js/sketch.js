@@ -13,6 +13,7 @@ let vects = [];
 function setup(){
     createCanvas(windowWidth-(windowWidth*.03),windowHeight-(windowHeight*.13));
     stroke(255);
+    frameRate(30);
     flowField = new FlowField(20)
     for(let i = 0; i < 100; i++) {
         vects.push(new Vect(random(width), random(height), random(2,5), random(0.1,0.5)));

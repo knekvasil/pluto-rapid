@@ -23,6 +23,17 @@ class Vect {
         this.drawVect();
     }
 
+    // Magic method
+    follow(flow) {
+        let desired = flow.lookup(this.position);
+        desired.mult(this.maxSpeed);
+
+        let steer = p5.Vector.sub(desired, this.velocity);
+        steer.limit(this.maxForce);
+
+        this.updateVectForce(steer);
+    }
+
     updateVectForce(force){
         this.acceleration.add(force);
     }
@@ -38,18 +49,7 @@ class Vect {
         // reset acceleration
         this.acceleration.mult(0);
     }
-
-    // Magic method
-    follow(flow) {
-        let desired = flow.lookup(this.position);
-        desired.mult(this.maxSpeed);
-
-        let steer = p5.Vector.sub(desired, this.velocity);
-        steer.limit(this.maxForce);
-
-        this.updateVectForce(steer);
-    }
-
+    
     // telport vector to opposite edge if travels off canvas
     fieldWrap(){
         if(this.position.x < -this.r){

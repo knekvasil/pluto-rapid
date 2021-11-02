@@ -12,23 +12,6 @@ class FlowField{
         this.initializeField();
     }
 
-    initializeField(){
-        let xOff = 0;
-        // Give me legions of fields. 100000 to be precise.
-        noiseSeed(Math.floor(random(10000)));
-
-        for(let i = 0; i < this.columns; i++) {
-            let yOff = 0;
-            for(let j = 0; j< this.rows; j++) {
-                // Polar --> Cartesian
-                let theta = map(noise(xOff,yOff), 0, 1, 0, TWO_PI);
-                this.field[i][j] = createVector(cos(theta), sin(theta));
-            }
-            yOff += 0.1;
-        }
-        xOff += 0.1;
-    }
-
     // Thanks JavaScript! Very cool.
     generate2DArray(n){
         let arr = [];
@@ -37,15 +20,26 @@ class FlowField{
             arr[i] = [];
         }
         return arr;
-        // return Array(n).fill(Array(n).fill());
     }
 
-    lookup(position) {
-        let column = Math.floor(constrain(position.x / this.density, 0, this.columns - 1));
-        let row = Math.floor(constrain(position.y / this.density, 0, this.rows - 1));
-        return this.field[column][row].copy();
+    initializeField(){
+        // Give me legions of fields. 100000 to be precise.
+        noiseSeed(Math.floor(random(10000)));
+        let xOffset = 0;
+        
+        for(let i = 0; i < this.columns; i++) {
+            let yOffset = 0;
+            for(let j = 0; j< this.rows; j++) {
+                // Polar --> Cartesian
+                let theta = map(noise(xOffset,yOffset), 0, 1, 0, TWO_PI);
+                this.field[i][j] = createVector(cos(theta), sin(theta));
+                yOffset += 0.1;
+            }
+            xOffset += 0.1;
+        }
+        
     }
-    
+
     displayField(){
         for(let i = 0; i < this.columns; i++) {
             for(let j = 0; j < this.rows; j++) {
@@ -54,7 +48,13 @@ class FlowField{
         }
     }
 
-    drawFieldVector(x, y, vect, fieldDensity){
+    lookup(position) {
+        let column = Math.floor(constrain(position.x / this.density, 0, this.columns - 1));
+        let row = Math.floor(constrain(position.y / this.density, 0, this.rows - 1));
+        return this.field[column][row].copy();
+    }
+    
+    drawFieldVector(vect, x, y, fieldDensity){
         // Start new drawing state for fieldVector
         push();
         let arrowSize = 4;
@@ -63,8 +63,8 @@ class FlowField{
         rotate(vect.heading());
         let length = vect.mag() * fieldDensity;
         line(0, 0, length, 0);
-        line(len,0,length - arrowsize, + arrowsize / 2);
-        line(len,0,length - arrowsize, - arrowsize / 2);
+        line(length, 0 ,length - arrowSize, arrowSize / 2);
+        line(length, 0 ,length - arrowSize, -arrowSize / 2);
         pop();
     }
 
