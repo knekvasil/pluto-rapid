@@ -22,7 +22,7 @@ class FlowField {
 
   init() {
     // generate random seed
-    noiseSeed(Math.floor(random(1000)));
+    noiseSeed(Math.floor(random(10000)));
     let xOffset = 0;
     for (let i = 0; i < this.columns; i++) {
       let yOffset = 0;
