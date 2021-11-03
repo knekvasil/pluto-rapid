@@ -44,6 +44,7 @@ class FlowField {
       }
     }
   }
+  
   // GET fieldVector info at position
   lookup(position) {
     let column = Math.floor(constrain(position.x / this.resolution, 0, this.columns - 1));

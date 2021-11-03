@@ -141,6 +141,4 @@ function initGame() {
   drawVekts();
   // draw final score
   drawFinalScore();
-  
-  
 }
