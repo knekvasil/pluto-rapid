@@ -9,8 +9,8 @@ let flowfield;
 // declare vekt array
 let vekts = [];
 // init Pluto starting position
-let x = 0;
-let y = 0;
+let x;
+let y;
 // init score
 let score = 0;
 // init final score
@@ -19,12 +19,16 @@ let finalScore = 0;
 function setup() {
   // create canvas with adjusted window size
   createCanvas(windowWidth-(windowWidth*.03), windowHeight-(windowHeight*.13));
+  x = mouseX;
+  y = mouseY;
   // parameter represents density of FlowField
   flowfield = new FlowField(20);
   drawVekts();
 }
 
 function draw() {
+  // position Pluto on cursor at game start
+
   if(gameOngoing){
     // init background
     background(0);
@@ -112,8 +116,21 @@ function drawFinalScore(){
 
 // Generate random vekts with random speed/force
 function drawVekts() {
+  let randX;
+  let randY;
   for (let i = 0; i < 240; i++) {
-    vekts.push(new Vekt(random(100,width-100), random(100,height-100), random(2, 5), random(0.1, 0.5)));
+    randX = random(width);
+    randY = random(height);
+    // don't let vects spawn on top of Pluto
+    while(abs(randX - mouseX) < 50 || abs(randY - mouseY) < 50){
+      if(randX - mouseX < 50 || mouseX - randX < 50){
+        randX = random(width)
+      }
+      if(randY - mouseY < 50 || mouseY - randY < 50){
+        randY = random(height)
+      }
+    }
+    vekts.push(new Vekt(randX, randY, random(2, 5), random(0.1, 0.5)));
   }
 }
 
@@ -125,8 +142,8 @@ function clearVekts(){
 // generate new game
 function initGame() {
   // reset Pluto's starting location back to the upper-left corner
-  x = 0;
-  y = 0;
+  x = mouseX;
+  y = mouseY;
   // reset score
   score = 0;
   // empty vekt array
