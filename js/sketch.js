@@ -78,11 +78,6 @@ function keyPressed() {
   }
 }
 
-// generate new FlowField
-function mousePressed() {
-  flowfield.init();
-}
-
 function drawPluto() {
   x = lerp(x, mouseX, 0.05);
   y = lerp(y, mouseY, 0.05);
@@ -117,7 +112,7 @@ function drawFinalScore(){
 
 // Generate random vekts with random speed/force
 function drawVekts() {
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 240; i++) {
     vekts.push(new Vekt(random(100,width-100), random(100,height-100), random(2, 5), random(0.1, 0.5)));
   }
 }
