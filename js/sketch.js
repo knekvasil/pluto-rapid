@@ -231,10 +231,17 @@ function drawTitleScreen() {
   text('HOW TO PLAY', width / 2, height * 0.86);
 }
 
+function getPlutoRadius() {
+  return max(15, 25 - floor(score / 50));
+}
+
 function drawPluto() {
+  let r = getPlutoRadius();
+  let d = r * 2;
+
   for (let i = 0; i < plutoTrail.length; i++) {
     let a = map(i, 0, plutoTrail.length, 15, 80);
-    let s = map(i, 0, plutoTrail.length, 6, 40);
+    let s = map(i, 0, plutoTrail.length, 3, d - 10);
     fill(150, 130, 200, a);
     noStroke();
     ellipse(plutoTrail[i].x, plutoTrail[i].y, s, s);
@@ -247,16 +254,17 @@ function drawPluto() {
 
   fill(170, 150, 210);
   noStroke();
-  ellipse(px, py, 50, 50);
+  ellipse(px, py, d, d);
 
+  let sc = d / 50;
   fill(130, 110, 170);
-  ellipse(px - 7, py - 4, 16, 12);
-  ellipse(px + 10, py + 8, 14, 16);
-  ellipse(px + 3, py - 11, 9, 7);
+  ellipse(px - 7 * sc, py - 4 * sc, 16 * sc, 12 * sc);
+  ellipse(px + 10 * sc, py + 8 * sc, 14 * sc, 16 * sc);
+  ellipse(px + 3 * sc, py - 11 * sc, 9 * sc, 7 * sc);
 
   fill(200, 185, 225);
-  ellipse(px - 5, py + 1, 14, 10);
-  ellipse(px + 5, py + 1, 10, 8);
+  ellipse(px - 5 * sc, py + 1 * sc, 14 * sc, 10 * sc);
+  ellipse(px + 5 * sc, py + 1 * sc, 10 * sc, 8 * sc);
 
   ctx.shadowBlur = 0;
   pop();
@@ -356,7 +364,7 @@ function updateGame() {
   let closestDist = Infinity;
   for (let v of vekts) {
     let d = p5.Vector.dist(v.position, plutoPos);
-    if (d <= 30) {
+    if (d <= getPlutoRadius() + 5) {
       startDeath();
       return;
     }
