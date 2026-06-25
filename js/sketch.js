@@ -348,7 +348,7 @@ function updateGame() {
     plutoTrail.shift();
   }
 
-  flowfield.update();
+  flowfield.update(score);
 
   if (debug) {
     flowfield.display();

@@ -9,8 +9,9 @@ class FlowField {
     this.zOff = 0;
   }
 
-  update() {
-    this.zOff += 0.003;
+  update(score) {
+    let bonus = (score || 0) * 0.00001;
+    this.zOff += 0.003 + bonus;
   }
 
   lookup(position) {
