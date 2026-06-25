@@ -31,6 +31,7 @@ let deathScore = 0;
 let flashAlpha = 0;
 let paused = false;
 let closeCallAlpha = 0;
+let milestoneEffects = [];
 let plutoTrail = [];
 
 function setup() {
@@ -58,6 +59,7 @@ function draw() {
       }
       drawGame();
       drawCloseCall();
+      drawMilestoneEffects();
       if (paused) {
         drawPauseOverlay();
       }
@@ -282,6 +284,21 @@ function mousePressed() {
   }
 }
 
+function drawMilestoneEffects() {
+  for (let i = milestoneEffects.length - 1; i >= 0; i--) {
+    let e = milestoneEffects[i];
+    e.radius += 4;
+    e.alpha -= 1.5;
+    noFill();
+    stroke(e.color[0], e.color[1], e.color[2], e.alpha);
+    strokeWeight(3);
+    ellipse(width / 2, height / 2, e.radius);
+    if (e.alpha <= 0) {
+      milestoneEffects.splice(i, 1);
+    }
+  }
+}
+
 function resetGame() {
   score = 0;
   lastMilestone = 0;
@@ -338,6 +355,19 @@ function updateGame() {
   if (milestone > lastMilestone) {
     flowfield.init();
     lastMilestone = milestone;
+    let neon = [
+      [100, 255, 200],
+      [255, 100, 200],
+      [200, 100, 255],
+      [100, 200, 255],
+      [200, 255, 100]
+    ];
+    milestoneEffects.push({
+      radius: 0,
+      maxRadius: max(width, height) * 0.6,
+      alpha: 200,
+      color: random(neon)
+    });
   }
 }
 
