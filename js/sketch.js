@@ -66,13 +66,16 @@ function draw() {
 function initStars() {
   stars = [];
   for (let i = 0; i < 300; i++) {
+    let depth = random(0.3, 1);
     stars.push({
       x: random(width),
       y: random(height),
-      size: random(0.5, 2.5),
+      size: random(0.5, 2.5) * depth,
       baseBrightness: random(100, 255),
       twinkleSpeed: random(0.02, 0.08),
-      twinkleOffset: random(TWO_PI)
+      twinkleOffset: random(TWO_PI),
+      depth: depth,
+      driftY: depth * random(0.1, 0.3)
     });
   }
 }
@@ -80,6 +83,12 @@ function initStars() {
 function drawStars() {
   noStroke();
   for (let s of stars) {
+    s.y += s.driftY;
+    if (s.y > height + 2) {
+      s.y = -2;
+      s.x = random(width);
+    }
+
     let twinkle = sin(frameCount * s.twinkleSpeed + s.twinkleOffset);
     let b = s.baseBrightness * map(twinkle, -1, 1, 0.4, 1);
     fill(b);
