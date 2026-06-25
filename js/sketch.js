@@ -19,6 +19,7 @@ let highScoreUpdated = false;
 let px, py;
 let gameStartMillis = 0;
 let lastMilestone = 0;
+let lastSpeedTier = 0;
 
 let stars = [];
 let nebulae = [];
@@ -314,6 +315,7 @@ function drawMilestoneEffects() {
 function resetGame() {
   score = 0;
   lastMilestone = 0;
+  lastSpeedTier = 0;
   highScoreUpdated = false;
   px = mouseX;
   py = mouseY;
@@ -380,6 +382,16 @@ function updateGame() {
       alpha: 200,
       color: random(neon)
     });
+  }
+
+  let speedTier = floor(score / 30);
+  if (speedTier > lastSpeedTier) {
+    lastSpeedTier = speedTier;
+    let minSpeed = 2 + speedTier * 0.4;
+    let maxSpeed = 5 + speedTier * 0.4;
+    for (let v of vekts) {
+      v.maxSpeed = random(minSpeed, maxSpeed);
+    }
   }
 }
 
