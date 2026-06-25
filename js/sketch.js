@@ -30,6 +30,7 @@ const DEATH_DURATION = 90;
 let deathScore = 0;
 let flashAlpha = 0;
 let paused = false;
+let closeCallAlpha = 0;
 let plutoTrail = [];
 
 function setup() {
@@ -56,6 +57,7 @@ function draw() {
         updateGame();
       }
       drawGame();
+      drawCloseCall();
       if (paused) {
         drawPauseOverlay();
       }
@@ -260,6 +262,18 @@ function drawScore() {
   }
 }
 
+function drawCloseCall() {
+  if (closeCallAlpha > 1) {
+    noStroke();
+    let thickness = 6;
+    fill(255, 60, 60, closeCallAlpha * 0.4);
+    rect(0, 0, width, thickness);
+    rect(0, height - thickness, width, thickness);
+    rect(0, 0, thickness, height);
+    rect(width - thickness, 0, thickness, height);
+  }
+}
+
 function mousePressed() {
   if (gameState === TITLE) {
     if (mouseY > height * 0.82 && mouseY < height * 0.92) {
@@ -302,11 +316,20 @@ function updateGame() {
   }
 
   let plutoPos = createVector(px, py);
+  let closestDist = Infinity;
   for (let v of vekts) {
-    if (p5.Vector.dist(v.position, plutoPos) <= 30) {
+    let d = p5.Vector.dist(v.position, plutoPos);
+    if (d <= 30) {
       startDeath();
       return;
     }
+    if (d < closestDist) closestDist = d;
+  }
+
+  if (closestDist < 20) {
+    closeCallAlpha = map(closestDist, 0, 20, 180, 0);
+  } else {
+    closeCallAlpha *= 0.85;
   }
 
   score = floor((millis() - gameStartMillis) / 1000);
