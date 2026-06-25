@@ -28,6 +28,7 @@ let deathTimer = 0;
 const DEATH_DURATION = 90;
 let deathScore = 0;
 let flashAlpha = 0;
+let paused = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -47,8 +48,13 @@ function draw() {
       drawTitleScreen();
       break;
     case PLAYING:
-      updateGame();
+      if (!paused) {
+        updateGame();
+      }
       drawGame();
+      if (paused) {
+        drawPauseOverlay();
+      }
       break;
     case DEATH:
       updateDeath();
@@ -381,6 +387,31 @@ function keyPressed() {
       resetGame();
     }
   }
+  if (keyCode == ESCAPE) {
+    if (gameState === PLAYING) {
+      paused = !paused;
+      return false;
+    }
+  }
+}
+
+function drawPauseOverlay() {
+  fill(0, 160);
+  noStroke();
+  rect(0, 0, width, height);
+
+  textAlign(CENTER, CENTER);
+  textFont('Chelsea Market');
+  let ctx = drawingContext;
+  ctx.shadowBlur = 30;
+  ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
+  fill(255);
+  textSize(50);
+  text('PAUSED', width / 2, height / 2);
+  ctx.shadowBlur = 0;
+  fill(180);
+  textSize(18);
+  text('Press ESC to resume', width / 2, height / 2 + 40);
 }
 
 function windowResized() {
