@@ -224,9 +224,10 @@ function updateGame() {
     flowfield.display();
   }
 
+  let dt = deltaTime / 16.67;
   for (let v of vekts) {
     v.follow(flowfield);
-    v.run();
+    v.run(dt);
   }
 
   let plutoPos = createVector(px, py);

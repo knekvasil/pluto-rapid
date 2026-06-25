@@ -20,8 +20,8 @@ class Vekt {
     this.color = random(neon);
   }
 
-  run() {
-    this.updateVektLocation();
+  run(dt) {
+    this.updateVektLocation(dt);
     this.updateTrail();
     this.fieldWrap();
     this.display();
@@ -39,10 +39,10 @@ class Vekt {
     this.acceleration.add(force);
   }
 
-  updateVektLocation() {
-    this.velocity.add(this.acceleration);
+  updateVektLocation(dt) {
+    this.velocity.add(p5.Vector.mult(this.acceleration, dt));
     this.velocity.limit(this.maxSpeed);
-    this.position.add(this.velocity);
+    this.position.add(p5.Vector.mult(this.velocity, dt));
     this.acceleration.mult(0);
   }
 
