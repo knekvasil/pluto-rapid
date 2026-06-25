@@ -20,6 +20,10 @@ let px, py;
 let gameStartMillis = 0;
 let lastMilestone = 0;
 let lastSpeedTier = 0;
+const MAX_VEKTS = 240;
+const INITIAL_VEKTS = 80;
+let vektsSpawned = 0;
+let lastSpawnScore = -10;
 
 let stars = [];
 let nebulae = [];
@@ -322,7 +326,9 @@ function resetGame() {
   plutoTrail = [];
   flowfield.init();
   clearVekts();
-  drawVekts();
+  vektsSpawned = INITIAL_VEKTS;
+  lastSpawnScore = -10;
+  drawVekts(INITIAL_VEKTS);
 }
 
 function updateGame() {
@@ -392,6 +398,13 @@ function updateGame() {
     for (let v of vekts) {
       v.maxSpeed = random(minSpeed, maxSpeed);
     }
+  }
+
+  if (vektsSpawned < MAX_VEKTS && score >= 10 && score - lastSpawnScore >= 10) {
+    lastSpawnScore = score;
+    let addCount = min(5, MAX_VEKTS - vektsSpawned);
+    drawVekts(addCount);
+    vektsSpawned += addCount;
   }
 }
 
@@ -500,10 +513,10 @@ function drawDeath() {
   }
 }
 
-function drawVekts() {
+function drawVekts(count) {
   let maxAttempts = 1000;
   let pos = createVector(px, py);
-  for (let i = 0; i < 240; i++) {
+  for (let i = 0; i < count; i++) {
     let randX = random(width);
     let randY = random(height);
     let attempts = 0;
