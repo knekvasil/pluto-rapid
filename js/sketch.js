@@ -30,6 +30,7 @@ const DEATH_DURATION = 90;
 let deathScore = 0;
 let flashAlpha = 0;
 let paused = false;
+let plutoTrail = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -210,6 +211,14 @@ function drawTitleScreen() {
 }
 
 function drawPluto() {
+  for (let i = 0; i < plutoTrail.length; i++) {
+    let a = map(i, 0, plutoTrail.length, 15, 80);
+    let s = map(i, 0, plutoTrail.length, 6, 40);
+    fill(150, 130, 200, a);
+    noStroke();
+    ellipse(plutoTrail[i].x, plutoTrail[i].y, s, s);
+  }
+
   push();
   let ctx = drawingContext;
   ctx.shadowBlur = 40;
@@ -265,6 +274,7 @@ function resetGame() {
   highScoreUpdated = false;
   px = mouseX;
   py = mouseY;
+  plutoTrail = [];
   flowfield.init();
   clearVekts();
   drawVekts();
@@ -273,6 +283,11 @@ function resetGame() {
 function updateGame() {
   px = lerp(px, mouseX, 0.05);
   py = lerp(py, mouseY, 0.05);
+
+  plutoTrail.push({ x: px, y: py });
+  if (plutoTrail.length > 20) {
+    plutoTrail.shift();
+  }
 
   flowfield.update();
 
