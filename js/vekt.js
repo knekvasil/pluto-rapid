@@ -8,16 +8,7 @@ class Vekt {
     this.maxForce = maxForce;
     this.trail = [];
     this.trailLength = 8;
-
-    let neon = [
-      [100, 255, 200],
-      [255, 100, 200],
-      [200, 100, 255],
-      [255, 200, 100],
-      [100, 200, 255],
-      [200, 255, 100]
-    ];
-    this.color = random(neon);
+    this.color = [150, 150, 150];
   }
 
   run(dt) {
@@ -29,6 +20,11 @@ class Vekt {
 
   follow(flowField) {
     let desired = flowField.lookup(this.position);
+    let theta = desired.heading();
+    this.color[0] = map(sin(theta), -1, 1, 100, 255);
+    this.color[1] = map(sin(theta + TWO_PI / 3), -1, 1, 100, 255);
+    this.color[2] = map(sin(theta + 2 * TWO_PI / 3), -1, 1, 100, 255);
+
     desired.mult(this.maxSpeed);
     let steer = p5.Vector.sub(desired, this.velocity);
     steer.limit(this.maxForce);
