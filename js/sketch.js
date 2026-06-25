@@ -21,6 +21,7 @@ let gameStartMillis = 0;
 let lastMilestone = 0;
 
 let stars = [];
+let nebulae = [];
 let bgVekts = [];
 
 let deathParticles = [];
@@ -36,10 +37,12 @@ function setup() {
   px = mouseX;
   py = mouseY;
   initStars();
+  initNebulae();
 }
 
 function draw() {
   background(0);
+  drawNebulae();
   drawStars();
 
   switch (gameState) {
@@ -93,6 +96,44 @@ function drawStars() {
     let b = s.baseBrightness * map(twinkle, -1, 1, 0.4, 1);
     fill(b);
     ellipse(s.x, s.y, s.size, s.size);
+  }
+}
+
+function initNebulae() {
+  nebulae = [];
+  let palette = [
+    [30, 10, 60],
+    [60, 10, 40],
+    [10, 30, 60],
+    [50, 20, 10],
+    [10, 50, 40]
+  ];
+  for (let i = 0; i < 5; i++) {
+    let c = random(palette);
+    nebulae.push({
+      x: random(width),
+      y: random(height),
+      size: random(300, 600),
+      color: c,
+      alpha: random(6, 14),
+      vx: random(-0.08, 0.08),
+      vy: random(-0.08, 0.08)
+    });
+  }
+}
+
+function drawNebulae() {
+  noStroke();
+  for (let n of nebulae) {
+    n.x += n.vx;
+    n.y += n.vy;
+    let half = n.size / 2;
+    if (n.x < -half) n.x = width + half;
+    if (n.x > width + half) n.x = -half;
+    if (n.y < -half) n.y = height + half;
+    if (n.y > height + half) n.y = -half;
+    fill(n.color[0], n.color[1], n.color[2], n.alpha);
+    ellipse(n.x, n.y, n.size, n.size);
   }
 }
 
