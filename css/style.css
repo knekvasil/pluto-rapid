@@ -1,56 +1,67 @@
-@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap");
 
-html,
-body {
+html, body {
   margin: 0;
-  height: 100%;
+  padding: 0;
+  overflow: hidden;
   background-color: black;
+  height: 100%;
 }
 
-body {
+canvas {
+  display: block;
+}
+
+.howto-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: auto;
+}
+
+.howto-container {
+  text-align: center;
+  max-width: 500px;
+  padding: 40px;
+}
+
+.howto-container p {
   font-family: "Chelsea Market", cursive;
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  color: white;
+  font-size: 20px;
+  color: #ccc;
+  margin: 30px 0 10px;
 }
 
-a {
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  color: white;
-  text-decoration: none;
-}
-
-h2 {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+.neon-title {
+  color: #96dcff;
   font-size: 50px;
+  text-shadow: 0 0 20px rgba(150, 220, 255, 0.5);
+  font-family: "Chelsea Market", cursive;
 }
 
-h3 {
-  font-size: 30px;
+.neon-vekt {
+  color: #ff64c8;
+  text-shadow: 0 0 10px rgba(255, 100, 200, 0.5);
 }
 
-.button {
-  width: 214px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+.neon-danger {
+  color: #ff6464;
+  text-shadow: 0 0 10px rgba(255, 100, 100, 0.5);
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
+.back-link {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 25px;
+  color: #96dcff;
+  text-decoration: none;
+  text-shadow: 0 0 10px rgba(150, 220, 255, 0.3);
+  font-family: "Chelsea Market", cursive;
 }
 
-.img-logo {
-  width: 40%;
+.back-link:hover {
+  text-shadow: 0 0 20px rgba(150, 220, 255, 0.8);
 }
 
 .img-howto {
