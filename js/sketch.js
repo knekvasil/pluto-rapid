@@ -31,6 +31,8 @@ let deathScore = 0;
 let flashAlpha = 0;
 let paused = false;
 let closeCallAlpha = 0;
+let shakeAmount = 0;
+let shakeDuration = 0;
 let milestoneEffects = [];
 let plutoTrail = [];
 
@@ -44,6 +46,12 @@ function setup() {
 }
 
 function draw() {
+  let shaking = shakeDuration > 0;
+  if (shaking) {
+    push();
+    translate(random(-shakeAmount, shakeAmount), random(-shakeAmount, shakeAmount));
+    shakeDuration--;
+  }
   background(0);
   drawNebulae();
   drawStars();
@@ -68,6 +76,10 @@ function draw() {
       updateDeath();
       drawDeath();
       break;
+  }
+
+  if (shaking) {
+    pop();
   }
 }
 
@@ -381,6 +393,8 @@ function startDeath() {
   deathTimer = DEATH_DURATION;
   deathScore = score;
   flashAlpha = 200;
+  shakeAmount = 12;
+  shakeDuration = 15;
 
   if (deathScore > highScore) {
     highScore = deathScore;
